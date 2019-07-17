@@ -1,0 +1,7 @@
+{
+    "env": {
+        "compiler": "bit.envs/compilers/typescript@3.0.5"
+    },
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm"
+}
