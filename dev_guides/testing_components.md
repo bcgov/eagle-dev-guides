@@ -15,6 +15,7 @@ Testing components that the team discussed we will use are as follows:
 * **Zap** for security scanning by penetration testing
 * **Linting** to ensure code readability
 * **NPM Audit** for vulnerability scans related to npm modules
+* **ThreatModeler** for security threat modeling 
 * **Unit Tests** to test individual units of software
 * **Factory Boy** for test data generation
 
