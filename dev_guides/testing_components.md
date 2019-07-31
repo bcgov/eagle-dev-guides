@@ -12,7 +12,7 @@ Testing components that the team discussed we will use are as follows:
 * **Storybook** to test Bit common components
 * **Snyk** for version and security vulnerability scanning
 * **SonarQube** for static code analysis
-* **Zap** for security scanning by penetration testing
+* **Zap** for security WAVA (web application vulnerability assessment) scanning
 * **Linting** to ensure code readability
 * **NPM Audit** for vulnerability scans related to npm modules
 * **ThreatModeler** for security threat modeling 
