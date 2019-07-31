@@ -1,6 +1,17 @@
 # eagle-common-components
 
-Common NPM components used by various front-ends
+Common NPM components to be consumed by other projects.
+
+## Related projects
+
+Eagle is a revision name of the EAO EPIC application suite.
+
+There are several other projects that relate to EAO EPIC:
+<https://github.com/bcgov/eagle-public>
+<https://github.com/bcgov/eagle-admin>
+<https://github.com/bcgov/eagle-common-components>
+<https://github.com/bcgov/eagle-reports>
+<https://github.com/bcgov/eagle-helper-pods>
 
 ## Setting up
 
