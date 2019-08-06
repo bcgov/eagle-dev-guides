@@ -18,9 +18,13 @@ Testing components that the team discussed we will use are as follows:
 * **ThreatModeler** for security threat modeling 
 * **Unit Tests** to test individual units of software
 * **Factory Boy** for test data generation
+* **ThreatModeler** is an automated threat modeling solution to be run periodically with NRM security
+* **Nagios Reporting** to consolidate the results of all tests into one report
 
-## EPIC Testing Pyramid
+## EPIC Testing Stack
 
-Diagram of the EPIC Testing Pyramid from functional to unit testing.
+See below for a diagram of our proposed EPIC Testing Stack.
 
-![alt text](images/Epic_test_pipeline.png "Epic Testing Pyramind")
+We also rank the levels of the test pyramid in regards to portability, effort, and coverage of the the test/tool.
+
+![alt text](images/epic_test_stack.png "Epic Testing Pyramind")
