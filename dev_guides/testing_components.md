@@ -22,7 +22,7 @@ Testing components used are as follows:
 * **Zap** for security WAVA (web application vulnerability assessment) scanning
 * **Linting** to ensure code readability
 * **NPM Audit** for vulnerability scans related to npm modules
-* **APM** for application performance measurement in order to detect inefficient code and bugs that users do not report
+* **APM** for application performance monitoring in order to detect inefficient code and bugs that users do not report
 * **ThreatModeler** for security threat modeling to be run periodically with NRM security
 * **Nagios Reporting** to consolidate the results of all tests into one report
 
