@@ -2,14 +2,13 @@
 
 ## Pre-requisites
 
-We use a version manager so as to allow concurrent versions of node and other software.  [asdf](https://github.com/asdf-vm/asdf) is recommended.  asdf uses a config file called .tool-versions that the reshim command picks up so that all collaborators are using the same versions.
+Run the utility file at the root of this repo called 'developer_install_prerequisites.sh'
 
-Run the following commands:
 ```
-asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+.\developer_install_prerequisites.sh
 ```
 
-Next open *.tool-versions* and take the node version there and use it in the following command so that that specific version of node is present on your local machine for asdf to switch to.  Replace the "x" characters in the following command with what's in *.tool-versions*.
+This will take care of installing the basic tools and prerequisites needed for EAO EPIC Eagle
 
 ```
 asdf install nodejs x.xx.x
