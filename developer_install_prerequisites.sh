@@ -43,6 +43,7 @@ if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
     git mongodb make;
     brew cask install visual-studio-code;
 elif [[ "$PACKAGE_MANAGER" == "choco" ]]; then
+    sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;"
     choco upgrade chocolatey;
     choco install git vscode make -y;
 elif [[ "$PACKAGE_MANAGER" == "yum" ]]; then
