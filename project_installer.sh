@@ -21,6 +21,9 @@ if [[ "$NODEJS_CURRENT_VERSION" != "$NODEJS_TARGET_VERSION" ]]; then
   asdf reshim nodejs;
 fi
 
+rm -Rf ./node_modules
+rm ./*.lock
+
 installNpmModuleIfNeeded "@angular/cli" "package.json" "ng -v";
 installNpmModuleIfNeeded "typescript" "package.json" "ng -v";
 installNpmModuleIfNeeded "tslint" "package.json" "tslint -v" "true";
