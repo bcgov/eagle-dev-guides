@@ -147,6 +147,8 @@ then
         asdf update;
     fi
     asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git;
+    bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring;
+    asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git;
 fi
 
 echo "Finished installing developer prerequisites"
