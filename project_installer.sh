@@ -12,6 +12,10 @@ then
     exit 1;
 fi
 
+if [[ -e ./node_modules ]]; then rm -Rf ./node_modules; fi
+if [[ -e ./*.lock ]]; then rm ./*.lock; fi
+mkdir node_modules;
+
 NODEJS_TAG="nodejs ";
 NODEJS_TARGET_VERSION=$(findTagValueInFile "$NODEJS_TAG" ".tool-versions");
 NODEJS_CURRENT_VERSION=$(findTagValueInCommandOutput "v" "node -v");
@@ -21,15 +25,9 @@ if [[ "$NODEJS_CURRENT_VERSION" != "$NODEJS_TARGET_VERSION" ]]; then
   asdf reshim nodejs;
 fi
 
-rm -Rf ./node_modules
-rm ./*.lock
-
-installNpmModuleIfNeeded "@angular/cli" "package.json" "ng -v";
-installNpmModuleIfNeeded "typescript" "package.json" "ng -v";
-installNpmModuleIfNeeded "tslint" "package.json" "tslint -v" "true";
-
 # TODO: waiting for asdf bugfix to handle yarn installs gracefully
-npm i -g yarn@1.10.1;
-yarn install;
+# npm i -g yarn@1.10.1;
+# yarn install;
+npm i;
 
 npm ls -g --depth=0;
