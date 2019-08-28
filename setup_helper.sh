@@ -29,6 +29,10 @@ findTagValueInCommandOutput(){
     echo "$_tag_value";
 }
 
+# Examples:
+# installNpmModuleIfNeeded "@angular/cli" "package.json" "ng -v";
+# installNpmModuleIfNeeded "typescript" "package.json" "ng -v";
+# installNpmModuleIfNeeded "tslint" "package.json" "tslint -v" "true";
 installNpmModuleIfNeeded(){
     local _module_label=$1;
     local _file_containing_targets=$2;
