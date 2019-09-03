@@ -1,3 +1,5 @@
+source ./developer_install_helper.sh
+
 PACKAGE_MANAGER=""
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -68,87 +70,28 @@ fi
 
 source ./vscodeextensions.txt
 
-# http://tldp.org/LDP/abs/html/fto.html
-if [[ ! -e ~/.bash_profile ]]
-then
-    touch ~/.bash_profile
-fi
-
-if ! grep "export MONGODB_DATABASE=" ~/.bash_profile; then
-    echo "export MONGODB_DATABASE=\"epic\"" >> ~/.bash_profile;
-fi
-
-if ! grep "export MINIO_HOST=" ~/.bash_profile; then
-    echo "export MINIO_HOST=\"foo.pathfinder.gov.bc.ca\"" >> ~/.bash_profile;
-fi
-
-if ! grep "export MINIO_ACCESS_KEY=" ~/.bash_profile; then
-    echo "export MINIO_ACCESS_KEY=\"xxxx\"" >> ~/.bash_profile;
-fi
-
-if ! grep "export MINIO_SECRET_KEY=" ~/.bash_profile; then
-    echo "export MINIO_SECRET_KEY=\"xxxx\"" >> ~/.bash_profile;
-fi
-
-if ! grep "export KEYCLOAK_ENABLED=" ~/.bash_profile; then
-    echo "export KEYCLOAK_ENABLED=\"true\"" >> ~/.bash_profile;
-fi
-
-source ~/.bash_profile
-
-if [[ ! -e ~/.bashrc ]]
-then
-    touch ~/.bashrc
-fi
-
-if ! grep "export MONGODB_DATABASE=" ~/.bashrc; then
-    echo "export MONGODB_DATABASE=\"epic\"" >> ~/.bashrc;
-fi
-
-if ! grep "export MINIO_HOST=" ~/.bashrc; then
-    echo "export MINIO_HOST=\"foo.pathfinder.gov.bc.ca\"" >> ~/.bashrc;
-fi
-
-if ! grep "export MINIO_ACCESS_KEY=" ~/.bashrc; then
-    echo "export MINIO_ACCESS_KEY=\"xxxx\"" >> ~/.bashrc;
-fi
-
-if ! grep "export MINIO_SECRET_KEY=" ~/.bashrc; then
-    echo "export MINIO_SECRET_KEY=\"xxxx\"" >> ~/.bashrc;
-fi
-
-if ! grep "export KEYCLOAK_ENABLED=" ~/.bashrc; then
-    echo "export KEYCLOAK_ENABLED=\"true\"" >> ~/.bashrc;
-fi
-
-source ~/.bashrc
+envProfileSettings ~/.bash_profile;
+envProfileSettings ~/.bashrc;
 
 if [[ ! -d ~/.asdf ]]
 then
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         brew install asdf;
-        if ! grep "/asdf.sh" ~/.bash_profile; then
-            echo ". $(brew --prefix asdf)/asdf.sh" >> ~/.bash_profile;
-        fi
-        if ! grep "/asdf.sh" ~/.bash_profile; then
-            echo ". $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash" >> ~/.bash_profile;
-        fi
+        asdfProfileSettings ~/.bash_profile;
+        asdfProfileSettings ~/.bashrc;
         brew upgrade asdf;
     else
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf;
         cd ~/.asdf;
         git checkout "$(git describe --abbrev=0 --tags)";
-        if ! grep "/asdf.sh" ~/.bash_profile; then
-            echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc;
-        fi
-        if ! grep "/asdf.sh" ~/.bash_profile; then
-            echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc;
-        fi
+        asdfProfileSettings ~/.bash_profile;
+        asdfProfileSettings ~/.bashrc;
         asdf update;
     fi
     asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git;
     bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring;
     asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git;
 fi
+asdfProfileSettings;
 
 echo "Finished installing developer prerequisites"
