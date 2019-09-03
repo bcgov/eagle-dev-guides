@@ -75,23 +75,23 @@ then
 fi
 
 if ! grep "export MONGODB_DATABASE=" ~/.bash_profile; then
-    echo "export MONGODB_DATABASE=\"epic\"" | ~/.bash_profile;
+    echo "export MONGODB_DATABASE=\"epic\"" >> ~/.bash_profile;
 fi
 
 if ! grep "export MINIO_HOST=" ~/.bash_profile; then
-    echo "export MINIO_HOST=\"foo.pathfinder.gov.bc.ca\"" | ~/.bash_profile;
+    echo "export MINIO_HOST=\"foo.pathfinder.gov.bc.ca\"" >> ~/.bash_profile;
 fi
 
 if ! grep "export MINIO_ACCESS_KEY=" ~/.bash_profile; then
-    echo "export MINIO_ACCESS_KEY=\"xxxx\"" | ~/.bash_profile;
+    echo "export MINIO_ACCESS_KEY=\"xxxx\"" >> ~/.bash_profile;
 fi
 
 if ! grep "export MINIO_SECRET_KEY=" ~/.bash_profile; then
-    echo "export MINIO_SECRET_KEY=\"xxxx\"" | ~/.bash_profile;
+    echo "export MINIO_SECRET_KEY=\"xxxx\"" >> ~/.bash_profile;
 fi
 
 if ! grep "export KEYCLOAK_ENABLED=" ~/.bash_profile; then
-    echo "export KEYCLOAK_ENABLED=\"true\"" | ~/.bash_profile;
+    echo "export KEYCLOAK_ENABLED=\"true\"" >> ~/.bash_profile;
 fi
 
 source ~/.bash_profile
@@ -102,23 +102,23 @@ then
 fi
 
 if ! grep "export MONGODB_DATABASE=" ~/.bashrc; then
-    echo "export MONGODB_DATABASE=\"epic\"" | ~/.bashrc;
+    echo "export MONGODB_DATABASE=\"epic\"" >> ~/.bashrc;
 fi
 
 if ! grep "export MINIO_HOST=" ~/.bashrc; then
-    echo "export MINIO_HOST=\"foo.pathfinder.gov.bc.ca\"" | ~/.bashrc;
+    echo "export MINIO_HOST=\"foo.pathfinder.gov.bc.ca\"" >> ~/.bashrc;
 fi
 
 if ! grep "export MINIO_ACCESS_KEY=" ~/.bashrc; then
-    echo "export MINIO_ACCESS_KEY=\"xxxx\"" | ~/.bashrc;
+    echo "export MINIO_ACCESS_KEY=\"xxxx\"" >> ~/.bashrc;
 fi
 
 if ! grep "export MINIO_SECRET_KEY=" ~/.bashrc; then
-    echo "export MINIO_SECRET_KEY=\"xxxx\"" | ~/.bashrc;
+    echo "export MINIO_SECRET_KEY=\"xxxx\"" >> ~/.bashrc;
 fi
 
 if ! grep "export KEYCLOAK_ENABLED=" ~/.bashrc; then
-    echo "export KEYCLOAK_ENABLED=\"true\"" | ~/.bashrc;
+    echo "export KEYCLOAK_ENABLED=\"true\"" >> ~/.bashrc;
 fi
 
 source ~/.bashrc
@@ -128,10 +128,10 @@ then
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         brew install asdf;
         if ! grep "/asdf.sh" ~/.bash_profile; then
-            echo ". $(brew --prefix asdf)/asdf.sh" | ~/.bash_profile;
+            echo ". $(brew --prefix asdf)/asdf.sh" >> ~/.bash_profile;
         fi
         if ! grep "/asdf.sh" ~/.bash_profile; then
-            echo ". $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash" | ~/.bash_profile;
+            echo ". $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash" >> ~/.bash_profile;
         fi
         brew upgrade asdf;
     else
