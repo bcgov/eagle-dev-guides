@@ -1,5 +1,5 @@
 asdfProfileWriterBrew(){
-    local _profile_file=$1
+    local _profile_file=$1;
     if [[ ! -e "$_profile_file" ]]
     then
         touch "$_profile_file";
@@ -13,7 +13,7 @@ asdfProfileWriterBrew(){
 }
 
 asdfProfileWriterNonBrew(){
-    local _profile_file=$1
+    local _profile_file=$1;
     if [[ ! -e "$_profile_file" ]]
     then
         touch "$_profile_file";
@@ -27,7 +27,7 @@ asdfProfileWriterNonBrew(){
 }
 
 asdfProfileSettings(){
-    local _profile_file=$1
+    local _profile_file=$1;
     local _profile_file_before=$(date -r "$_profile_file" "+%m-%d-%Y %H:%M:%S");
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         asdfProfileWriterBrew "$_profile_file";
@@ -39,7 +39,7 @@ asdfProfileSettings(){
 }
 
 envProfileSettings(){
-    local _profile_file=$1
+    local _profile_file=$1;
     if [[ ! -e "$_profile_file" ]]
     then
         touch "$_profile_file";
@@ -61,7 +61,7 @@ envProfileSettings(){
         echo "export MINIO_SECRET_KEY=\"xxxx\"" >> "$_profile_file";
     fi
 
-    if ! grep "export KEYCLOAK_ENABLED=" "$_profile_file" then
+    if ! grep "export KEYCLOAK_ENABLED=" "$_profile_file"; then
         echo "export KEYCLOAK_ENABLED=\"true\"" >> "$_profile_file";
     fi
     local _profile_file_after=$(date -r "$_profile_file" "+%m-%d-%Y %H:%M:%S");
