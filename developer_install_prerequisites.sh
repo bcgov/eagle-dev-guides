@@ -88,12 +88,15 @@ then
         asdfProfileSettings ~/.bashrc;
         asdf update;
     fi
-    asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git;
-    bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring;
-    asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git;
 else
     asdfProfileSettings ~/.bash_profile;
     asdfProfileSettings ~/.bashrc;
 fi
+
+asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git;
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring;
+asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git;
+asdf plugin-add java;
+asdf plugin-add gradle https://github.com/rfrancis/asdf-gradle;
 
 echo "Finished installing developer prerequisites"
