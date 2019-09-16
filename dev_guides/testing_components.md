@@ -2,7 +2,7 @@
 
 Testing is expensive so we wish to develop automated tests as part of our continuous integration pipeline. Automated testing is reliable in that tests are automatically run by tools and scripts. It is also significantly faster than manual testing, and can be run frequently. Manual testing does not scale well, especially considering sprints that have a fixed amount of time and cannot afford to dedicate time for manual testing every time.
 
-![alt text](images/manual_testing_cost.png "Epic Testing Pyramind")
+![alt text](images/manual_testing_scaling_costs.png "Cost of Manual Testing")
 
 ## EPIC Testing Components
 
