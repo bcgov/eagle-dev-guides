@@ -23,3 +23,4 @@ Documentation on general topics of all EPIC projects.
 * [Code Reuse Strategy](dev_guides/code_reuse_strategy.md)
 * [Testing Approach](dev_guides/testing_components.md)
 * [Angular Code Scaffolding](dev_guides/angular_scaffolding.md)
+* [2018 EAR Model Update](dev_guides/ear_model_update.md)
