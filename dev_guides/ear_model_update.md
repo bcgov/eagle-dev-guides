@@ -4,6 +4,10 @@ New legislation requirements necessitate updates to our model schemas for projec
 New projects and documents will have a radio toggle for which legislation applies.
 
 The following diagram is an example of the new database model for projects.
-![alt text](diagrams/ear_model_update.png "EAR Update - Project Model")
+![alt text](diagrams/EAR_model.png "EAR Update - Project Model")
 
 A project will now only contain it's ID, a field for the active legislation for the project, and an array of ID's for project data objects. The project data objects will contain all the information related to a project. 
+
+Projects will only be able to transition forward to a new legislation, previous project data under other legislations will be read only.
+
+![alt text](diagrams/ear_usecases.png "EAR Project Use Cases")
