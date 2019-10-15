@@ -26,10 +26,10 @@ elif [[ "$OSTYPE" == "linux"* ]]; then
 elif [[ "$OSTYPE" == "bsd"* || "$OSTYPE" == "solaris"* ]]; then
     # not supported
     echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
-    exit 1
+    exit 1;
 else
     echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
-    exit 1
+    exit 1;
 fi
 
 
@@ -46,7 +46,7 @@ if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
     git mongodb make;
     brew cask install visual-studio-code;
 elif [[ "$PACKAGE_MANAGER" == "choco" ]]; then
-    sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;"
+    sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;";
     choco upgrade chocolatey;
     choco install git vscode make -y;
 elif [[ "$PACKAGE_MANAGER" == "yum" ]]; then
@@ -66,7 +66,7 @@ elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
     sudo apt-get -y install build-essential git-core mongodb-org code;
 else
     echo -e \\n"Packages not installed.\\n"\\n
-    exit 1
+    exit 1;
 fi
 
 curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/vscodeextensions.txt;
@@ -100,4 +100,4 @@ asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git;
 asdf plugin-add java;
 asdf plugin-add gradle https://github.com/rfrancis/asdf-gradle;
 
-echo "Finished installing developer prerequisites"
+echo "Finished installing developer prerequisites";
