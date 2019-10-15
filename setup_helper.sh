@@ -1,3 +1,6 @@
+curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/shell_helper.sh;
+source ./shell_helper.sh;
+
 findTagValueInFile(){
     local _tag=$1;
     local _file=$2;
@@ -118,8 +121,8 @@ installJavaIfNeeded(){
         fi
       fi
     fi
-    javaProfileWriter ~/.bash_profile;
-    javaProfileWriter ~/.bashrc;
+    javaProfileWriter "${PROFILE_FILE}";
+    javaProfileWriter "${RC_FILE}";
   fi
 }
 

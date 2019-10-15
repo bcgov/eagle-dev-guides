@@ -1,3 +1,6 @@
+curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/shell_helper.sh;
+source ./shell_helper.sh;
+
 asdfProfileWriterBrew(){
     local _profile_file=$1;
     if [[ ! -e "$_profile_file" ]]

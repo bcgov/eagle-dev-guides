@@ -1,6 +1,7 @@
-source ./developer_install_helper.sh
+curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/developer_install_helper.sh;
+source ./developer_install_helper.sh;
 
-PACKAGE_MANAGER=""
+PACKAGE_MANAGER="";
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
@@ -24,10 +25,10 @@ elif [[ "$OSTYPE" == "linux"* ]]; then
     fi
 elif [[ "$OSTYPE" == "bsd"* || "$OSTYPE" == "solaris"* ]]; then
     # not supported
-    echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n
+    echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
     exit 1
 else
-    echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n
+    echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
     exit 1
 fi
 
@@ -68,29 +69,29 @@ else
     exit 1
 fi
 
-source ./vscodeextensions.txt
+curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/vscodeextensions.txt;
+source ./vscodeextensions.txt;
 
-envProfileSettings ~/.bash_profile;
-envProfileSettings ~/.bashrc;
+envProfileSettings "${PROFILE_FILE}";
+envProfileSettings "${RC_FILE}";
 
-if [[ ! -d ~/.asdf ]]
-then
+if [[ ! -d ~/.asdf ]]; then
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         brew install asdf;
-        asdfProfileSettings ~/.bash_profile;
-        asdfProfileSettings ~/.bashrc;
+        asdfProfileSettings "${PROFILE_FILE}";
+        asdfProfileSettings "${RC_FILE}";
         brew upgrade asdf;
     else
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf;
         cd ~/.asdf;
         git checkout "$(git describe --abbrev=0 --tags)";
-        asdfProfileSettings ~/.bash_profile;
-        asdfProfileSettings ~/.bashrc;
+        asdfProfileSettings "${PROFILE_FILE}";
+        asdfProfileSettings "${RC_FILE}";
         asdf update;
     fi
 else
-    asdfProfileSettings ~/.bash_profile;
-    asdfProfileSettings ~/.bashrc;
+    asdfProfileSettings "${PROFILE_FILE}";
+    asdfProfileSettings "${RC_FILE}";
 fi
 
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git;
