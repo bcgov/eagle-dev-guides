@@ -1,6 +1,7 @@
-source ./developer_install_helper.sh
+curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/developer_install_helper.sh;
+source ./developer_install_helper.sh;
 
-PACKAGE_MANAGER=""
+PACKAGE_MANAGER="";
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
@@ -24,11 +25,11 @@ elif [[ "$OSTYPE" == "linux"* ]]; then
     fi
 elif [[ "$OSTYPE" == "bsd"* || "$OSTYPE" == "solaris"* ]]; then
     # not supported
-    echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n
-    exit 1
+    echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
+    exit 1;
 else
-    echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n
-    exit 1
+    echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
+    exit 1;
 fi
 
 
@@ -45,7 +46,7 @@ if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
     git mongodb make;
     brew cask install visual-studio-code;
 elif [[ "$PACKAGE_MANAGER" == "choco" ]]; then
-    sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;"
+    sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;";
     choco upgrade chocolatey;
     choco install git vscode make -y;
 elif [[ "$PACKAGE_MANAGER" == "yum" ]]; then
@@ -65,32 +66,32 @@ elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
     sudo apt-get -y install build-essential git-core mongodb-org code;
 else
     echo -e \\n"Packages not installed.\\n"\\n
-    exit 1
+    exit 1;
 fi
 
-source ./vscodeextensions.txt
+curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/vscodeextensions.txt;
+source ./vscodeextensions.txt;
 
-envProfileSettings ~/.bash_profile;
-envProfileSettings ~/.bashrc;
+envProfileSettings "${PROFILE_FILE}";
+envProfileSettings "${RC_FILE}";
 
-if [[ ! -d ~/.asdf ]]
-then
+if [[ ! -d ~/.asdf ]]; then
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         brew install asdf;
-        asdfProfileSettings ~/.bash_profile;
-        asdfProfileSettings ~/.bashrc;
+        asdfProfileSettings "${PROFILE_FILE}";
+        asdfProfileSettings "${RC_FILE}";
         brew upgrade asdf;
     else
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf;
         cd ~/.asdf;
         git checkout "$(git describe --abbrev=0 --tags)";
-        asdfProfileSettings ~/.bash_profile;
-        asdfProfileSettings ~/.bashrc;
+        asdfProfileSettings "${PROFILE_FILE}";
+        asdfProfileSettings "${RC_FILE}";
         asdf update;
     fi
 else
-    asdfProfileSettings ~/.bash_profile;
-    asdfProfileSettings ~/.bashrc;
+    asdfProfileSettings "${PROFILE_FILE}";
+    asdfProfileSettings "${RC_FILE}";
 fi
 
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git;
@@ -99,4 +100,4 @@ asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git;
 asdf plugin-add java;
 asdf plugin-add gradle https://github.com/rfrancis/asdf-gradle;
 
-echo "Finished installing developer prerequisites"
+echo "Finished installing developer prerequisites";
