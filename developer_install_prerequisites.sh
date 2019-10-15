@@ -81,6 +81,8 @@ if [[ ! -d ~/.asdf ]]; then
         asdfProfileSettings "${PROFILE_FILE}";
         asdfProfileSettings "${RC_FILE}";
         brew upgrade asdf;
+        chmod +x /usr/local/opt/asdf/asdf.sh;
+        chmod +x /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash;
     else
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf;
         cd ~/.asdf;
