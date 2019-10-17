@@ -8,6 +8,7 @@ click [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to inst
 
 - Run the install scripts on whichever repo you are on. Should work if running through wsl.
   - If not update this document so future Windows users have an easier time!
+  - MONGODB IS ON V4.0 not V3.4!!!
 
 ### Extra Notes / Known Problems
 
