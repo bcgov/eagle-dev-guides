@@ -7,7 +7,7 @@ findTagValueInFile(){
 
     local _tag_find="sed -n -e 's/^.*${_tag}//p' ${_file}";
     local _tag_value=$(eval $_tag_find);
-    if [ -z "${_tag_value}" ]; then
+    if [ ! -z "${_tag_value}" ]; then
       _tag_value=${_tag_value//[\"\,]/""};
       _tag_value=$(echo $_tag_value | sed -e 's/^[[:space:]]*//');
       echo "$_tag_value";
@@ -24,7 +24,7 @@ findTagValueInCommandOutput(){
     local _tag_for_sed=${_tag//[\/]/"\\/"};
 
     local _tag_find="${_command_string}";
-    if [ -z "${_no_label_in_command}" ]; then
+    if [ ! -z "${_no_label_in_command}" ]; then
       _tag_find="${_command_string} | sed -n -e 's/^.*${_tag_for_sed}//p'";
     fi
 
@@ -71,6 +71,10 @@ installNpmModuleIfNeeded(){
 
 javaProfileWriter(){
     local _profile_file=$1;
+    if [[ -z "$_profile_file" ]]; then
+      echo -e "No profile file set";
+      return;
+    fi
     if [[ ! -e "$_profile_file" ]]
     then
         touch "$_profile_file";
@@ -89,9 +93,10 @@ installNodeIfNeeded(){
   NODEJS_TAG="nodejs ";
   NODEJS_TARGET_VERSION=$(findTagValueInFile "$NODEJS_TAG" ".tool-versions");
 
-  if [[ -z "$NODEJS_TARGET_VERSION" ]]; then
+  if [[ ! -z "$NODEJS_TARGET_VERSION" ]]; then
     NODEJS_CURRENT_VERSION=$(findTagValueInCommandOutput "v" "node -v");
     if [[ "$NODEJS_CURRENT_VERSION" != "$NODEJS_TARGET_VERSION" ]]; then
+      echo "handling node version '${NODEJS_TARGET_VERSION}'";
       asdf install nodejs $NODEJS_TARGET_VERSION;
       asdf reshim nodejs;
     fi
@@ -114,6 +119,7 @@ installJavaIfNeeded(){
         JAVA_TARGET_NAME=$(asdf list-all java | grep -v "_openj" | grep "$JAVA_PACKAGE_TAG$JAVA_TARGET_MAJOR_VERSION" | tail -1);  # possible multiline output, get last line
         
         if [[ -z "$JAVA_TARGET_NAME" ]]; then
+          echo "handling java version '${JAVA_TARGET_NAME}'";
           #brew cask uninstall java;
           #brew uninstall jenv;  # then restart your machine
           asdf install java "$JAVA_TARGET_NAME";
@@ -133,6 +139,7 @@ installGradleIfNeeded(){
   if [[ -z "$GRADLE_TARGET_VERSION" ]]; then
     GRADLE_CURRENT_VERSION=$(findTagValueInCommandOutput "Gradle" "gradle -v");
     if [[ "$GRADLE_CURRENT_VERSION" != "$GRADLE_TARGET_VERSION" ]]; then
+      echo "handling java version '${GRADLE_TARGET_VERSION}'";
       asdf install gradle $GRADLE_TARGET_VERSION;
       asdf reshim gradle;
     fi
