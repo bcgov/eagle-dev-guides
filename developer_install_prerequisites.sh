@@ -69,10 +69,11 @@ elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
     sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/;
     sudo apt-get install apt-transport-https;
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10;
-    # Didn't seem to work for me
-    # echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list;
+    # Didn't seem to work for 
+    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
     sudo apt-get update;
     sudo apt-get -y install build-essential git-core
+    sudo apt-get install -y mongodb-org=4.0.3 mongodb-org-server=4.0.3 mongodb-org-shell=4.0.3 mongodb-org-mongos=4.0.3 mongodb-org-tools=4.0.3 code
 
     if $WSL ; then
       # This is to install mongodb for windows subsystem linux
@@ -81,12 +82,12 @@ elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
       sudo apt-key add server-4.0.asc
       rm server-4.0.asc
       sudo apt-get update
-      sudo apt-get install -y mongodb-org
       curl -sL "https://www.mongodb.org/static/pgp/server-4.0.asc?_ga=2.264892495.1953852568.1531143056-750073170.1531143056" | sudo apt-key add
+      sudo apt-get install -y mongodb-org=4.0.3 mongodb-org-server=4.0.3 mongodb-org-shell=4.0.3 mongodb-org-mongos=4.0.3 mongodb-org-tools=4.0.3
     else
-      echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+      echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.listmongodb-org-4.2.list
       sudo apt-get update
-      sudo apt-get install -y mongodb-org
+      sudo apt-get install -y mongodb-org=4.0.3 mongodb-org-server=4.0.3 mongodb-org-shell=4.0.3 mongodb-org-mongos=4.0.3 mongodb-org-tools=4.0.3
     fi
 else
     echo -e \\n"Packages not installed.\\n"\\n
