@@ -108,17 +108,17 @@ installJavaIfNeeded(){
   JAVA_PACKAGE_TAG="openjdk-";
   JAVA_TARGET_VERSION=$(findTagValueInFile "$JAVA_TAG" ".tool-versions");  # this will output adopt-openjdk-11.0.4+11.4
   
-  if [[ -z "$JAVA_TARGET_VERSION" ]]; then
+  if [[ ! -z "$JAVA_TARGET_VERSION" ]]; then
     JAVA_CURRENT_VERSION=$(findTagValueInCommandOutput "$JAVA_PACKAGE_TAG" "asdf current java");  # this will output a number 11.0.4
     JAVA_CURRENT_MAJOR_VERSION=$(echo $JAVA_TARGET_VERSION | cut -d '.' -f 1,2);   # 11.0
     
     if [[ "$JAVA_CURRENT_VERSION" != "$JAVA_TARGET_VERSION" ]]; then
       JAVA_TARGET_MAJOR_VERSION=$(echo $JAVA_TARGET_VERSION | cut -d '.' -f 1,2 | rev | cut -d '-' -f 1 | rev);  # 11.0
       
-      if [[ -z "$JAVA_TARGET_MAJOR_VERSION" ]]; then
+      if [[ ! -z "$JAVA_TARGET_MAJOR_VERSION" ]]; then
         JAVA_TARGET_NAME=$(asdf list-all java | grep -v "_openj" | grep "$JAVA_PACKAGE_TAG$JAVA_TARGET_MAJOR_VERSION" | tail -1);  # possible multiline output, get last line
         
-        if [[ -z "$JAVA_TARGET_NAME" ]]; then
+        if [[ ! -z "$JAVA_TARGET_NAME" ]]; then
           echo "handling java version '${JAVA_TARGET_NAME}'";
           #brew cask uninstall java;
           #brew uninstall jenv;  # then restart your machine
@@ -136,10 +136,10 @@ installGradleIfNeeded(){
   GRADLE_TAG="gradle ";
   GRADLE_TARGET_VERSION=$(findTagValueInFile "$GRADLE_TAG" ".tool-versions");
 
-  if [[ -z "$GRADLE_TARGET_VERSION" ]]; then
+  if [[ ! -z "$GRADLE_TARGET_VERSION" ]]; then
     GRADLE_CURRENT_VERSION=$(findTagValueInCommandOutput "Gradle" "gradle -v");
     if [[ "$GRADLE_CURRENT_VERSION" != "$GRADLE_TARGET_VERSION" ]]; then
-      echo "handling java version '${GRADLE_TARGET_VERSION}'";
+      echo "handling gradle version '${GRADLE_TARGET_VERSION}'";
       asdf install gradle $GRADLE_TARGET_VERSION;
       asdf reshim gradle;
     fi
