@@ -139,7 +139,7 @@ installGradleIfNeeded(){
   if [[ ! -z "$GRADLE_TARGET_VERSION" ]]; then
     GRADLE_CURRENT_VERSION=$(findTagValueInCommandOutput "Gradle" "gradle -v");
     if [[ "$GRADLE_CURRENT_VERSION" != "$GRADLE_TARGET_VERSION" ]]; then
-      echo "handling java version '${GRADLE_TARGET_VERSION}'";
+      echo "handling gradle version '${GRADLE_TARGET_VERSION}'";
       asdf install gradle $GRADLE_TARGET_VERSION;
       asdf reshim gradle;
     fi
