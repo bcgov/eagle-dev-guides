@@ -16,8 +16,8 @@ click [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to inst
 - Mongodb has problems with WSL. Check [here](https://github.com/Microsoft/WSL/issues/3286) for more information about that
   - This [this](https://github.com/Microsoft/WSL/issues/3286#issuecomment-402594992) answer explains the manual process of adding in the mongodb keys to apt
   - Also [this](https://github.com/Microsoft/WSL/issues/796#issuecomment-255451470) is needed to get mongodb setup as a service
-
-
+- Minio will fail with error `Invalid endPoint : undefined`
+  - Need to set the Environment Variables in the eagle-api readme (use setx for cmd or $env for powershell)
 ### ASDF Problems
 
 - Couldn't use asdf to install java openjdk 11 so just apt-install
