@@ -21,6 +21,7 @@ These projects comprise EAO EPIC:
 
 Documentation on general topics of all EPIC projects.
 
+* [Application Architecture](dev_guides/architecture.md)
 * [Project Prerequisites](dev_guides/node_npm_requirements.md)
 * [Code Reuse Strategy](dev_guides/code_reuse_strategy.md)
 * [Testing Approach](dev_guides/testing_components.md)
