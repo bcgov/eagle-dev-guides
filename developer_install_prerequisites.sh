@@ -46,7 +46,10 @@ if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
     brew install coreutils automake autoconf openssl \
     libyaml readline libxslt libtool unixodbc \
     unzip curl \
-    git mongodb make;
+    git make;
+    brew tap mongodb/brew;
+    brew install mongodb-community@3.6;
+    brew services start mongodb-community;
     brew cask install visual-studio-code;
 elif [[ "$PACKAGE_MANAGER" == "choco" ]]; then
     sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;";
