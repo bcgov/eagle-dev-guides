@@ -98,7 +98,7 @@ fi
 
 curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/vscodeextensions.txt;
 
-if !$WSL ; then
+if [[ "$WSL" == false ]] ; then
   source ./vscodeextensions.txt;
 fi
 
