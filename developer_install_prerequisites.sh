@@ -2,6 +2,7 @@ curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/develo
 source ./developer_install_helper.sh;
 
 PACKAGE_MANAGER="";
+WSL=false
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
