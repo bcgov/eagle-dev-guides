@@ -9,6 +9,8 @@ Run the utility file at the root of this repo called 'developer_install_prerequi
 ```
 
 This will take care of installing the basic tools and prerequisites needed for EAO EPIC Eagle
+- Make sure to restart your shell before continuing then verify asdf installed
+- If it did not install follow manual install instructions at [WindowsReadme.md](https://github.com/bcgov/eagle-dev-guides/blob/master/WindowsReadme.md})
 
 ```
 asdf install nodejs x.xx.x

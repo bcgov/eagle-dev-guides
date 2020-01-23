@@ -8,6 +8,8 @@ click [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to inst
 
 - Run the install scripts on whichever repo you are on. Should work if running through wsl.
   - If not update this document so future Windows users have an easier time!
+- After running install_prerequisites follow the node setup instructions: [node setup](https://github.com/bcgov/eagle-dev-guides/blob/master/dev_guides/node_npm_requirements.md) before running setup project.
+
 
 ### Known Issues
 
@@ -22,6 +24,7 @@ click [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to inst
 
 - Couldn't use asdf to install java openjdk 11 so just apt-install
 - Needed unzip to install gradle using asdf so make sure to install that 
+- If asdf did not install correctly follow manual process at:  [asdf](https://asdf-vm.com/#/core-manage-asdf-vm)
 
 ### If not using wsl
 
