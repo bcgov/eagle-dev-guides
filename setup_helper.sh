@@ -97,6 +97,7 @@ installNodeIfNeeded(){
     NODEJS_CURRENT_VERSION=$(findTagValueInCommandOutput "v" "node -v");
     if [[ "$NODEJS_CURRENT_VERSION" != "$NODEJS_TARGET_VERSION" ]]; then
       echo "handling node version '${NODEJS_TARGET_VERSION}'";
+      source "$_profile_file";
       asdf install nodejs $NODEJS_TARGET_VERSION;
       asdf reshim nodejs;
     fi

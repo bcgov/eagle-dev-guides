@@ -2,7 +2,7 @@ curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/develo
 source ./developer_install_helper.sh;
 
 PACKAGE_MANAGER="";
-WSL=false
+IDLIKE="$(grep ID_LIKE /etc/os-release | awk -F '=' '{print $2}')"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
@@ -12,27 +12,18 @@ elif [[ "$OSTYPE" == "cygwin"* || "$OSTYPE" == "msys"* || "$OSTYPE" == "win"* ]]
     # POSIX compatibility layer and Linux environment emulation for Windows
     # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
     PACKAGE_MANAGER="choco";
-elif [[ "$OSTYPE" == "linux"* ]]; then
-    if grep -qi Microsoft /proc/sys/kernel/osrelease 2> /dev/null; then
-        # Need this for the installation of mongodb
-        WSL=true
-        PACKAGE_MANAGER="apt";
-    else
-        # Win10 Subsystem will folow this path aswell
-        # Linux
-        DISTRO=$(lsb_release -ds 2>/dev/null || cat /etc/*release 2>/dev/null | head -n1 || uname -om);
-        if [[ "$DISTRO" == *"hat"* || "$DISTRO" == *"centos"* ]]; then
-            PACKAGE_MANAGER="yum";
-        elif [[ "$OSTYPE" == *"debian"* || "$OSTYPE" == *"ubuntu"* ]]; then
-            PACKAGE_MANAGER="apt";
-        fi
-    fi
+elif [[ "$IDLIKE" == *"debian"* ]]; then
+    # Debian base like Ubuntu
+    PACKAGE_MANAGER="apt";
+elif [[ "$IDLIKE" == *"fedora"* ]]; then
+    # Fedora base like CentOS or RHEL
+    PACKAGE_MANAGER="yum";
 elif [[ "$OSTYPE" == "bsd"* || "$OSTYPE" == "solaris"* ]]; then
     # not supported
-    echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
+    echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nDebian\\nFedora\\n"\\n;
     exit 1;
 else
-    echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nWindows\\nDebian\\nFedora\\n"\\n;
+    echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nDebian\\nFedora\\n"\\n;
     exit 1;
 fi
 
@@ -52,6 +43,7 @@ if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
     brew install mongodb-community@3.6;
     brew services start mongodb-community;
     brew cask install visual-studio-code;
+    brew install openshift-cli@3.11.0;
 elif [[ "$PACKAGE_MANAGER" == "choco" ]]; then
     sudo PowerShell -NoProfile -ExecutionPolicy remotesigned -Command ". 'install_choco.ps1;";
     choco upgrade chocolatey;
@@ -60,47 +52,41 @@ elif [[ "$PACKAGE_MANAGER" == "yum" ]]; then
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc;
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo';
     yum check-update;
-    sudo yum -y install git code make;
+    sudo yum -y install code;
+    sudo yum -y install epel-release;
+    sudo yum -y install coreutils automake autoconf openssl libtool unixodbc make jq unzip curl git mongodb-server mongodb;
+    # OpenShift client install
+    curl -LO https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+    tar zxvf openshift-origin-client-tools*
+    sudo mv openshift-origin-client-tools*/oc /usr/local/bin/
+    rm -rf openshift-origin-client-tools*
 elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
     sudo apt-get update && sudo apt-get -y upgrade;
      # This here is for vscode
-    sudo apt install software-properties-common apt-transport-https wget
+    sudo apt-get -y install software-properties-common apt-transport-https wget
     wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-    sudo apt update
-    sudo apt-get -y install code
-
-    sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/;
-    sudo apt-get install apt-transport-https;
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10;
-    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
     sudo apt-get update;
-    sudo apt-get -y install build-essential git-core
-    sudo apt-get install -y mongodb-org=4.0.3 mongodb-org-server=4.0.3 mongodb-org-shell=4.0.3 mongodb-org-mongos=4.0.3 mongodb-org-tools=4.0.3 code
+    sudo apt-get -y install code;
+    sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/;
+    sudo apt-get -y install apt-transport-https;
+    #sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10;
+    #echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+    sudo apt-get update;
+    sudo apt-get -y install build-essential coreutils automake autoconf openssl libtool unixodbc unzip curl git mongodb make jq;
+    # OpenShift client install
+    curl -LO https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+    tar zxvf openshift-origin-client-tools*
+    sudo mv openshift-origin-client-tools*/oc /usr/local/bin/
+    rm -rf openshift-origin-client-tools*
 
-    if $WSL ; then
-      # If this doesn't work follow the manual installation steps in the windows readme
-      wget https://www.mongodb.org/static/pgp/server-4.0.asc
-      sudo apt-key add server-4.0.asc
-      rm server-4.0.asc
-      sudo apt-get update
-      curl -sL "https://www.mongodb.org/static/pgp/server-4.0.asc?_ga=2.264892495.1953852568.1531143056-750073170.1531143056" | sudo apt-key add
-     sudo apt-get install -y mongodb-org
-    else
-     echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-      sudo apt-get update
-     sudo apt-get install -y mongodb-org
-    fi
 else
     echo -e \\n"Packages not installed.\\n"\\n
     exit 1;
 fi
 
 curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/vscodeextensions.txt;
-
-if [[ "$WSL" == false ]] ; then
-  source ./vscodeextensions.txt;
-fi
+source ./vscodeextensions.txt;
 
 envProfileSettings "${PROFILE_FILE}";
 envProfileSettings "${RC_FILE}";

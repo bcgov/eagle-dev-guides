@@ -25,6 +25,7 @@ asdfProfileWriterNonBrew(){
     if ! grep "/asdf.bash" "$_profile_file"; then
         echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> "$_profile_file";
     fi
+    source "$_profile_file";
 }
 
 asdfProfileSettings(){

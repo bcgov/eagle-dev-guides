@@ -28,3 +28,4 @@ Documentation on general topics of all EPIC projects.
 * [Front-end OpenShift Extended Builds Explained](dev_guides/s2i_extended_builds.md)
 * [Angular Code Scaffolding](dev_guides/angular_scaffolding.md)
 * [2018 EAR Model Update](dev_guides/ear_model_update.md)
+* [EPIC resource and API model](dev_guides/epic_resource_model.md)
