@@ -1,0 +1,17 @@
+FROM centos:7
+# Set shell to bash instead of default sh
+SHELL ["/bin/bash", "-c"]
+# Install required packages to pull down repos and setup sudo
+RUN yum install -y git sudo unzip
+# Create user "dev" with a home and bash profiles
+RUN useradd -g root dev -m --create-home
+# Add user "dev" to sudoers as scripts run with sudo
+RUN echo "dev ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/dev && \
+    chmod 0440 /etc/sudoers.d/dev
+# Create default mongo data directories and set permissions to user "dev"
+RUN mkdir -p /data/db && \
+    chown -R dev:root /data && \
+    chmod -R ug+rw /data
+# Set default directory and user to run as
+WORKDIR /home/dev
+USER dev
