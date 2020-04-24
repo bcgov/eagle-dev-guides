@@ -2,7 +2,6 @@ curl -LJO https://raw.githubusercontent.com/bcgov/eagle-dev-guides/master/develo
 source ./developer_install_helper.sh;
 
 PACKAGE_MANAGER="";
-IDLIKE="$(grep ID_LIKE /etc/os-release | awk -F '=' '{print $2}')"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX
@@ -12,19 +11,22 @@ elif [[ "$OSTYPE" == "cygwin"* || "$OSTYPE" == "msys"* || "$OSTYPE" == "win"* ]]
     # POSIX compatibility layer and Linux environment emulation for Windows
     # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
     PACKAGE_MANAGER="choco";
-elif [[ "$IDLIKE" == *"debian"* ]]; then
-    # Debian base like Ubuntu
-    PACKAGE_MANAGER="apt";
-elif [[ "$IDLIKE" == *"fedora"* ]]; then
-    # Fedora base like CentOS or RHEL
-    PACKAGE_MANAGER="yum";
 elif [[ "$OSTYPE" == "bsd"* || "$OSTYPE" == "solaris"* ]]; then
     # not supported
     echo -e \\n"OS not supported. Supported OS:\\nMac OSX\\nDebian\\nFedora\\n"\\n;
     exit 1;
 else
-    echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nDebian\\nFedora\\n"\\n;
-    exit 1;
+    IDLIKE="$(grep ID_LIKE /etc/os-release | awk -F '=' '{print $2}')";
+    if [[ "$IDLIKE" == *"debian"* ]]; then
+        # Debian base like Ubuntu
+        PACKAGE_MANAGER="apt";
+    elif [[ "$IDLIKE" == *"fedora"* ]]; then
+        # Fedora base like CentOS or RHEL
+        PACKAGE_MANAGER="yum";
+    else
+        echo -e \\n"OS not detected. Supported OS:\\nMac OSX\\nDebian\\nFedora\\n"\\n;
+        exit 1;
+    fi
 fi
 
 
@@ -37,7 +39,7 @@ if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
     brew update;
     brew install coreutils automake autoconf openssl \
     libyaml readline libxslt libtool unixodbc \
-    unzip curl \
+    unzip curl wget \
     git make;
     brew tap mongodb/brew;
     brew install mongodb-community@3.6;
@@ -54,7 +56,7 @@ elif [[ "$PACKAGE_MANAGER" == "yum" ]]; then
     yum check-update;
     sudo yum -y install code;
     sudo yum -y install epel-release;
-    sudo yum -y install coreutils automake autoconf openssl libtool unixodbc make jq unzip curl git mongodb-server mongodb;
+    sudo yum -y install coreutils automake autoconf openssl libtool unixodbc make jq unzip curl wget git mongodb-server mongodb;
     # OpenShift client install
     curl -LO https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
     tar zxvf openshift-origin-client-tools*
