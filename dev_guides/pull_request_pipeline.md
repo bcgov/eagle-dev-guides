@@ -65,11 +65,13 @@ git checkout master
 cd openshift/setup-teardown
 ./pr-cleanup-helpre.sh branch-name-lowercase
 git diff
-!!!! VERIFY PROJETSET is PR - if set incorrectly the wrong deployment could be torn down!!!!
+
+!!!! VERIFY PROJECTSET = PR !!!! (projectset.config)
+
 ./teardown-all.sh
 ```
 
-Watch script to verify it is removing objects prefixed with *branch-name-lowercase*, abort if not.
+Watch script to verify it is removing objects prefixed with *branch-name-lowercase*, abort if not. If the scripts don't find a matching object nothing will be removed and the script will continue.
 
 
 ## Troubleshooting
