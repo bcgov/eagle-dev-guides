@@ -63,7 +63,7 @@ Alternately the [teardown-all.sh](https://github.com/bcgov/eagle-helper-pods/blo
 ```
 git checkout master
 cd openshift/setup-teardown
-./pr-cleanup-helpre.sh branch-name-lowercase
+./pr-cleanup-helper.sh branch-name-lowercase
 git diff
 
 !!!! VERIFY PROJECTSET = PR !!!! (projectset.config)
@@ -75,6 +75,10 @@ Watch script to verify it is removing objects prefixed with *branch-name-lowerca
 
 
 ## Troubleshooting
+
+### My Changes Aren't in Test
+
+Check that the **develop** branch was succesfully built and verify the tagged image hashes match between the *dev* and *test* images (if the promotion job has run). May require manually starting a branch build or tagging an image to promote.
 
 ### Jobs are stuck waiting
 
