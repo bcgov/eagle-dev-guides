@@ -26,6 +26,25 @@ of the setup-teardown parameters. There are three placeholder parameters that ar
 - **branch-placeholder** - replaced by branch name from source fork, case-sensitive as it is used as part of a Github URL to retrieve templates
 - **pr-placeholder** - replaced by lower case branch name, used as a prefix for all openshift resources (ie. *pr-123-eagle-public-build*) and an app label (ie. *pr-123-epic*)
 
+## GitHub Branches
+
+EPIC's active default branch is the **develop** branch, developers should branch from and make pull requests to it. **Master** branch contains the code that is active in production, any hotfixes should be created from it. 
+
+Hotfixes are a special case that departs from the normal CI flow. A hotfix will branch off of **master** and be pushed to the **hotfix** branch, this will trigger a build and deployment of the hotfix into the TEST environment. A PR will be automatically created from **hotfix** to **master**, once merged the hotfix will be deployed to production. A PR will also be created back to **develop** to ensure the changes are preserved.
+
+* **develop** - default branch, all pull requests branch from it
+* **test** - CI branch, keep record of what code is deployed in TEST environment
+* **master** - CI branch, keep record of code deployed in PROD, any *hotfixes* are branched from this
+* **hotfix** - used to build hotfix code, deployed to TEST, merged to master
+
+
+Automatic pull requests are used to maintain CI. Auto-pr's include:
+
+* develop -> test
+* test -> master
+* hotfix -> develop
+* hotfix -> master
+
 ## Pipeline flow
 
 A fix or feature may require pull requests to a subset of eagle api, public, and admin repositories. Provided they all use the same branch name they will all be deployed together. The first pull request will create a full deployment of Epic including all deployments, builds, and other necessary resources as defined in the templates. The second pull request in skips the full deployment and instead updates that app's build config to point at the fork and branch of that pull request.
