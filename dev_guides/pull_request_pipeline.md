@@ -14,6 +14,8 @@ Eagle projects (ie. PR to api and admin repositories).
 - Due to resource constraints in the build and deploy environemnts it is recommended that small changes be grouped together 
 in a pull request instead of several smaller pull requests.
 
+- Ensure deployments are cleaned up when code has passed review. Too many stale deployments will block new PR deployments due to resource constraints.
+
 
 ## Pull Request Template
 
@@ -25,6 +27,8 @@ of the setup-teardown parameters. There are three placeholder parameters that ar
 - **fork-placeholder** - replaced by the source fork of the pull request
 - **branch-placeholder** - replaced by branch name from source fork, case-sensitive as it is used as part of a Github URL to retrieve templates
 - **pr-placeholder** - replaced by lower case branch name, used as a prefix for all openshift resources (ie. *pr-123-eagle-public-build*) and an app label (ie. *pr-123-epic*)
+
+> **IMPORTANT**: Branch names must start with a character, they cannot start with a number (DNS naming requirements) or many of the Openshift Objects will not be created and the deployment will be broken.
 
 ## GitHub Branches
 
@@ -113,7 +117,23 @@ In Openshift:
 
 2. In the DEV namespace - Check the deployments, are there enough resources to complete the deployment?
 
-   If quota has been reached, other PR's will have to be closed and cleaned up to make room.
+   > If quota has been reached, other PR's will have to be cleaned up to make room. Check for stale PR's
+
+   > If a PR is merged the Jenkins job will end and you will have to do a manual cleanup of the deployment. See pipeline [README](https://github.com/bcgov/eagle-helper-pods/blob/master/openshift/setup-teardown/README.md) in eagle-helper-pods repository.
+
+### Data generation failed
+
+The API's pod may not have been ready in time for the data generators to run.
+> Restart data-generation stage in jenkins
+
+or
+
+> Stop the current jenkins job and restart it
+
+API pod may have run out of memory, check the limits.
+> Increase deployment's memory and re-run jenkins job
+
+> If consistently happening update the helper-pods template with increased memory limits
 
 ### PR Merged before cleanup
 
