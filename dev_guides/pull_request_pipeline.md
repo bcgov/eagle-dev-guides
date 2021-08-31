@@ -1,3 +1,9 @@
+# Deprecated
+EPIC projects no longer uses the PR based pipeline due to complexity and reliability concerns of its implmentations.
+
+The project has switched to using a Github Action based pipeline [documented here](github_action_pipeline.md).
+
+
 # PR Based Pipeline
 
 Eagle projects are built using a Pull Request based pipeline and CI/CD flow using Jenkins.
