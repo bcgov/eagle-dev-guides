@@ -49,3 +49,4 @@ Test and Prod environment promotions are done using the automatically created pu
 ## TODO
 
 - Re-implement the **hotfix** branch pipeline
+- Re-implement the PR based pipeline with better reliability 
